@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:twilite/api/sample_lyrics.dart';
@@ -40,7 +38,7 @@ class _LyricsViewPageState extends State<LyricsViewPage> {
     lineIdexTracker = 0;
   }
 
-  void annotationWindowLaunch(int lineIndex){
+  void annotationWindowLaunch(int lineIndex) {
     print("-----------Trying annotation for $lineIndex");
   }
 
@@ -94,7 +92,8 @@ class _LyricsViewPageState extends State<LyricsViewPage> {
                       return Padding(
                           padding: const EdgeInsets.only(top: 10),
                           child: GestureDetector(
-                            onTap: () => annotationWindowLaunch(lineIdexTracker),
+                            onTap: () =>
+                                annotationWindowLaunch(lineIdexTracker),
                             child: Text(
                               line,
                               style: GoogleFonts.inter(
