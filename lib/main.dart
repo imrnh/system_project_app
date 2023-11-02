@@ -3,6 +3,7 @@ import 'package:twilite/api/sample_lyrics.dart';
 import 'package:twilite/pages/friends/chat.dart';
 import 'package:twilite/pages/homepage.dart';
 import 'package:twilite/pages/music_discovery/discovered_music_view.dart';
+import 'package:twilite/pages/music_discovery/listen_audio.dart';
 import 'package:twilite/pages/music_discovery/lyrics_view.dart';
 import 'package:twilite/widgets/appbar.dart';
 
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: ChatPage(myUID: "2343", frUID: "4009viodsf"),
+      home:  ListenMusicPage(),//ChatPage(myUID: "2343", frUID: "4009viodsf"),
     );
   }
 }
