@@ -26,7 +26,8 @@ class _ListenMusicPageState extends State<ListenMusicPage> {
   late DateTime startTime;
   late double totalWTime = 0.0;
   late String rpath = "";
-  final String audio_filename= randomString();
+  final String audio_filename = randomString();
+  bool isRecording = false;
 
   void uploadFile() async {
     final directory = await getApplicationDocumentsDirectory();
@@ -39,7 +40,9 @@ class _ListenMusicPageState extends State<ListenMusicPage> {
     var fileStream = http.ByteStream(file.openRead());
     var length = await file.length();
     var multipartFile = http.MultipartFile('file', fileStream, length,
-        filename: file.path.split('/').last);
+        filename: file.path
+            .split('/')
+            .last);
 
     request.files.add(multipartFile);
 
@@ -53,7 +56,11 @@ class _ListenMusicPageState extends State<ListenMusicPage> {
       } else {
         print('Failed to upload file. Status code: ${response.statusCode}');
       }
-    } catch (e) {totalWTime = DateTime.now().difference(startTime).inMilliseconds / 1000.0;
+    } catch (e) {
+      totalWTime = DateTime
+          .now()
+          .difference(startTime)
+          .inMilliseconds / 1000.0;
       print('Error uploading file: $e');
     }
   }
@@ -85,7 +92,10 @@ class _ListenMusicPageState extends State<ListenMusicPage> {
 
     setState(() {
       // rpath = path!;
-      totalWTime = DateTime.now().difference(startTime).inMilliseconds / 1000.0;
+      totalWTime = DateTime
+          .now()
+          .difference(startTime)
+          .inMilliseconds / 1000.0;
     });
     uploadFile();
   }
@@ -103,24 +113,56 @@ class _ListenMusicPageState extends State<ListenMusicPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SafeArea(
+    return Scaffold(
+
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.amberAccent, Colors.white],
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
           child: Column(
-        children: [
-          Text("Worked for $totalWTime}"),
-          ElevatedButton(
-            onPressed: recordOnFile,
-            child: const Text("Start Recording"),
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Recorded for ${totalWTime} seconds",
+                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 20.0),
+              Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
+              child:ElevatedButton(
+                onPressed: toggleRecording,
+                child: Text(isRecording ? "Stop Recording" : "Start Recording"),
+              ),
+
+              ),
+              SizedBox(height: 50.0),
+            ],
           ),
-          ElevatedButton(
-              onPressed: stopRecording, child: const Text("Stop recording")),
-          const SizedBox(
-            height: 100,
-          ),
-          ElevatedButton(onPressed: printData, child: const Text("Show data")),
-          // Text("Rec path $rpath"),
-        ],
-      )),
+        ),
+      ),
     );
   }
+  void toggleRecording() {
+    setState(() {
+      if (isRecording) {
+        stopRecording();
+      } else {
+        recordOnFile();
+      }
+      isRecording = !isRecording;
+    });
+  }
 }
+
