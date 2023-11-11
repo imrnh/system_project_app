@@ -40,6 +40,13 @@ dependencies:
   url_launcher: ^6.1.14
   appwrite: ^11.0.0
   record: ^5.0.1
+  flutter_sound: ^9.2.13
+  firebase_auth: ^4.12.1
+  firebase_core: ^2.21.0
+  google_sign_in: ^6.1.5
+  flutter_chat_ui: ^1.6.9
+  firebase_database: ^10.3.3
+  http: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +74,7 @@ flutter:
   assets:
    - assets/images/
    - assets/icons/
+   - assets/recorded/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
